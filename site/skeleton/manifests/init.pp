@@ -4,6 +4,6 @@ class skeleton {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///etc/skel/.bashrc',
+    source  => 'puppet:///site/skeleton/etc/skel/.bashrc',
   }
 }
