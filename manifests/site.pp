@@ -43,12 +43,12 @@ node default {
   # Example:
   #   class { 'my_class': }
   notify { "Hello, my name is ${::hostname}": }
-}
-  exec {
-		"cowsay 'Welcome to my Puppet managed server ${::fqdn}!' > /etc/motd":
-		path => '/usr/bin:/usr/local/bin',
+  exec { 'motd' :
+		comand => "/usr/local/bin/cowsay 'Welcome to my Puppet managed server ${::fqdn}!' > /etc/motd":
 		creates => '/etc/motd',
 	}
+}
+
 
 #file { '/etc/motd':
 #  ensure  => file,
