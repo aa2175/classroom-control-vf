@@ -46,6 +46,7 @@ node default {
   exec { 'motd' :
   	command => "/usr/local/bin/cowsay 'Welcome to my Puppet managed server ${::fqdn}!' > /etc/motd"
   }
+  include user
 }
 
 
