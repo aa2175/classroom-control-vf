@@ -50,6 +50,11 @@ node 'aa2175.puppetlabs.vm' {
   include skeleton
   include memcached
   include nginx
+
+  if $::virtual != 'physical' {
+    $nodename = capitalize($::virtual)
+    notify {"Puppet virtual fact -> ${nodename}":}
+  }
 }
 node default {
     notify { "${::fqdn} has no node definition": }
