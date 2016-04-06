@@ -46,7 +46,7 @@ node 'aa2175.puppetlabs.vm' {
   exec { 'motd' :
   	command => "/usr/local/bin/cowsay 'Welcome to my Puppet managed server ${::fqdn}!' > /etc/motd"
   }
-  include users
+  #include users
   include skeleton
 }
 node default {
