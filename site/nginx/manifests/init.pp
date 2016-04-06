@@ -6,8 +6,8 @@ class nginx {
   file { '/var/www' :
     ensure => directory,
   }
-  file { "${pkg}_config" :
-   path    => '/etc/${pkg}/nginx.conf',
+  file { "nginx_config" :
+   path    => '/etc/nginx/nginx.conf',
    ensure  => file,
    owner   => 'root',
    group   => 'root',
@@ -15,7 +15,7 @@ class nginx {
    require => Package[$pkg],
    source  => "puppet:///modules/nginx/nginx.conf",
   }
-  file { "${pkg}_site_config" :
+  file { "nginx_site_config" :
     path    => "/etc/nginx/conf.d/default.conf",
     ensure  => file,
     owner   => $pkg,
@@ -24,7 +24,7 @@ class nginx {
     require => Package[$pkg],
     source  => "puppet:///modules/nginx/default.conf",
   }
-  file { "${pkg}_html_index" :
+  file { "nginx_html_index" :
     path    => '/var/www/index.html',
     ensure  => file,
     owner   => $pkg,
