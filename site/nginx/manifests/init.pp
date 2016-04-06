@@ -1,38 +1,39 @@
 class nginx {
-  package { 'nginx':
+  $pkg = 'nginx'
+  package { $pkg:
    ensure => present,
   }
   file { '/var/www' :
     ensure => directory,
   }
-  file { 'nginx_config' :
-   path    => '/etc/nginx/nginx.conf',
+  file { "${pkg}_config" :
+   path    => '/etc/${pkg}/${pkg}.conf',
    ensure  => file,
    owner   => 'root',
    group   => 'root',
    mode    => '0644',
-   require => Package['nginx'],
-   source  => 'puppet:///modules/nginx/nginx.conf',
+   require => Package[$pkg],
+   source  => "puppet:///modules/${pkg}/${pkg}.conf",
   }
-  file { 'nginx_site_config' :
-    path    => '/etc/nginx/conf.d/default.conf',
+  file { "${pkg}_site_config" :
+    path    => "/etc/${pkg}/conf.d/default.conf",
     ensure  => file,
-    owner   => 'nginx',
-    group   => 'nginx',
+    owner   => $pkg,
+    group   => $pkg,
     mode    => '0644',
-    require => Package['nginx'],
-    source  => 'puppet:///modules/nginx/default.conf',
+    require => Package[$pkg],
+    source  => "puppet:///modules/${pkg}/default.conf",
   }
-  file { 'nginx_html_index' :
+  file { "${pkg}_html_index" :
     path    => '/var/www/index.html',
     ensure  => file,
-    owner   => 'nginx',
-    group   => 'nginx',
+    owner   => $pkg,
+    group   => $pkg,
     mode    => '0644',
-    require => Package['nginx'],
-    source  => 'puppet:///modules/nginx/index.html',
+    require => Package[$pkg],
+    source  => "puppet:///modules/${pkg}/index.html",
   }
-  service { 'nginx':
+  service { $pkg:
      ensure    => running,
      enable    => true,
      subscribe => [File['nginx_config'], File['nginx_site_config'],File['nginx_html_index']],
