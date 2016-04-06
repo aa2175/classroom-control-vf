@@ -35,8 +35,6 @@ class nginx {
   service { 'nginx':
      ensure    => running,
      enable    => true,
-     # subscribe => File['nginx_config'],
-     # subscribe => File['nginx_site_config'],
-     # subscribe => File['nginx_html_index'],
+     subscribe => [File['nginx_config'], File['nginx_site_config'],File['nginx_html_index']],
   }
 }
