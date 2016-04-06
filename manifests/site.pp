@@ -48,6 +48,7 @@ node 'aa2175.puppetlabs.vm' {
   }
   #include users
   include skeleton
+  include memcached
 }
 node default {
     notify { "${::fqdn} has no node definition": }
