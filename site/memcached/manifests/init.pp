@@ -11,4 +11,9 @@ class memcached {
     require => Package['memcached'],
     source  => 'puppet:///modules/memcached/sysconfig_memcached',
   }
+  service { 'memcached':
+      ensure        => running,
+      enable      => true,
+      subscribe => File['memcached_config'],
+  }
 }
