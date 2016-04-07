@@ -50,7 +50,7 @@ node 'aa2175.puppetlabs.vm' {
   include skeleton
   include memcached
   include nginx
-  include aliases
+  #include aliases
 
   if $::virtual != 'physical' {
     $nodename = capitalize($::virtual)
