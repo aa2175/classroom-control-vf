@@ -51,11 +51,15 @@ node 'aa2175.puppetlabs.vm' {
   include memcached
   include nginx
   #include aliases
+  include users::admins
 
   if $::virtual != 'physical' {
     $nodename = capitalize($::virtual)
     notify {"Puppet virtual fact -> ${nodename}":}
   }
+  $msg_hiera = hiera('message')
+  $msg_display = "Hiera message -> ${msg_hiera}"
+  notify {$msg_display:}
 }
 node default {
     notify { "${::fqdn} has no node definition": }
